@@ -140,20 +140,20 @@ namespace WebsiteNoiThat.Areas.Admin.Controllers
             return View(order);
         }
 
-        [HasCredential(RoleId = "DELETE_ORDER")]
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = db.Orders.Find(id);
-            if (order == null)
-            {
-                return HttpNotFound();
-            }
-            return View(order);
-        }
+        //[HasCredential(RoleId = "DELETE_ORDER")]
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Order order = db.Orders.Find(id);
+        //    if (order == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(order);
+        //}
 
         [HasCredential(RoleId = "DELETE_ORDER")]
 

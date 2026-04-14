@@ -206,7 +206,7 @@ namespace WebsiteNoiThat.Areas.Admin.Controllers
                 var model = db.Products.Find(Convert.ToInt32(id));
                 db.Products.Remove(model);
                 db.SaveChanges();
-                return View();
+                return RedirectToAction("Show");
         }
 
         public ActionResult Menu()

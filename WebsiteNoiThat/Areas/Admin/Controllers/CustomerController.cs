@@ -187,5 +187,15 @@ namespace WebsiteNoiThat.Areas.Admin.Controllers
             }
             return RedirectToAction("Show");
         }
+
+        [HttpGet]
+        [HasCredential(RoleId = "DELETE_USER")]
+        public ActionResult Delete(int id)
+        {
+            var model = db.Users.Find(Convert.ToInt32(id));
+            db.Users.Remove(model);
+            db.SaveChanges();
+            return RedirectToAction("Show");
+        }
     }
 }

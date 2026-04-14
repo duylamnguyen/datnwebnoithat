@@ -31,7 +31,7 @@
         </td>
         <td>
             <input type="button" class="btn btn-sm btn-primary" value="Sửa" onclick="location.href='@Url.Action("Edit", "UserGroups", new { id=item.GroupId })'" /> |
-            <input type="button" class="btn btn-sm btn-danger" value="Xóa" onclick="location.href='@Url.Action("Delete", "UserGroups", new { id=item.GroupId })'" />
+            <input type="button" class="btn btn-sm btn-danger" value="Xóa" onclick="if (confirm('Xác nhận xoá?')) { location.href = '@Url.Action("Delete", "UserGroups", new { id=item.GroupId })' }" />
         </td>
     </tr>
 }
