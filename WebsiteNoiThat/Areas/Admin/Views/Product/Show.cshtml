@@ -42,24 +42,24 @@
                             <td style="text-align:center;">@item.Price.GetValueOrDefault(0).ToString("N0")₫</td>
                             <td>
                                 <a href="/Admin/Product/Edit?ProductId=@item.ProductId"><span class="fa fa-edit"></span></a>
-                                <a href="/Admin/Product/Delete?ProductId=@item.ProductId" onclick="return confirm('Xác nhận xoá?');"><span class="fa fa-trash-alt"></span></a>
+                                <a href="/Admin/Product/Delete?id=@item.ProductId" onclick="return confirm('Xác nhận xoá?');"><span class="fa fa-trash-alt"></span></a>
                                 @*<div class="modal fade" id="" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                <h4 class="modal-title" id="myModalLabel">Delete Confirmation</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                Are you sure want to delete this item?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a asp-page-handler="Delete" asp-route-Id="@item.ProductId" id="deleteBtn" class="btn bg-danger mr-1">Xoá</a>
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Huỷ</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>*@
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Delete Confirmation</h4>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure want to delete this item?
+                    </div>
+                    <div class="modal-footer">
+                        <a asp-page-handler="Delete" asp-route-Id="@item.ProductId" id="deleteBtn" class="btn bg-danger mr-1">Xoá</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Huỷ</button>
+                    </div>
+                </div>
+            </div>
+        </div>*@
                             </td>
                         </tr>
                     }

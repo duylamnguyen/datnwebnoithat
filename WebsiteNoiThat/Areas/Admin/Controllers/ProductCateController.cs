@@ -103,5 +103,14 @@ namespace WebsiteNoiThat.Areas.Admin.Controllers
             return RedirectToAction("Show");
         }
 
+        [HttpGet]
+        [HasCredential(RoleId = "DELETE_CATE")]
+        public ActionResult Delete(int id)
+        {
+            var model = db.Categories.Find(Convert.ToInt32(id));
+            db.Categories.Remove(model);
+            db.SaveChanges();
+            return RedirectToAction("Show");
+        }
     }
 }

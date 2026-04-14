@@ -33,7 +33,7 @@
                         <td>@item.ParId</td>
                         <td>
                             <input type="button" class="btn btn-sm btn-primary" value="Sửa" onclick="location.href='/Admin/ProductCate/Edit?CategoryId=@item.CategoryId'" /> |
-                            <input type="button" class="btn btn-sm btn-danger" value="Xóa" onclick="location.href='/Admin/ProductCate/Delete?CategoryId=@item.CategoryId'" />
+                            <input type="button" class="btn btn-sm btn-danger" value="Xóa" onclick="if (confirm('Xác nhận xoá?')) { location.href = '/Admin/ProductCate/Delete?id=@item.CategoryId' }" />
                         </td>
                     </tr>
                 }

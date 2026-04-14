@@ -35,7 +35,7 @@
                         <td>@item.Phone</td>
                         <td width="120px;">
                             <input type="button" class="btn btn-sm btn-primary" value="Sửa" onclick="location.href='/Admin/Provider/Edit?ProviderId=@item.ProviderId'" /> |
-                            <input type="button" class="btn btn-sm btn-danger" value="Xóa" onclick="location.href='/Admin/Provider/Delete?ProviderId=@item.ProviderId'" />
+                            <input type="button" class="btn btn-sm btn-danger" value="Xóa" onclick="if (confirm('Xác nhận xoá?')) { location.href = '/Admin/Provider/Delete?id=@item.ProviderId' }" />
                         </td>
                     </tr>
                     }

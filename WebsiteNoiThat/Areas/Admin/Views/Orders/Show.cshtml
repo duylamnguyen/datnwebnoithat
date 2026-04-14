@@ -70,7 +70,7 @@
                             <td width="200px">
                                 <input type="button" class="btn btn-sm btn-primary" value="Xem" onclick="location.href='/Admin/Orders/Details/@item.OrderId'" />
                                 <input type="button" class="btn btn-sm btn-warning" value="Cập nhật" onclick="location.href='/Admin/Orders/Edit/@item.OrderId'" />
-                                <input type="button" class="btn btn-sm btn-danger" value="Xóa" onclick="location.href='/Admin/Orders/Delete/@item.OrderId'" />
+                                <input type="button" class="btn btn-sm btn-danger"  value="Xóa" onclick="if (confirm('Xác nhận xoá?')) { location.href = '/Admin/Orders/Delete?id=@item.OrderId' }" />
                             </td>
                         </tr>
                     }
