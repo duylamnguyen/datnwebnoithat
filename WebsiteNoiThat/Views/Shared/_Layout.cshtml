@@ -83,7 +83,7 @@
                 <ul class="x1">
                     <li><a href="/Home/Index">Trang chủ</a></li>
                     <li>
-                        <div class="dropdown" >
+                        <div class="dropdown">
                             <a class="btn dropdown-toggle" id="dropdown_category" data-toggle="dropdown" style="margin-top: -5px;">Danh Mục</a>
                             @{ Html.RenderAction("Menu", "CategoryProduct");}
                         </div>
@@ -101,7 +101,7 @@
         <div class="container">
             <section id="featured">
                 @*slider*@
-                <div >
+                <div>
                     <div>
                         <img class="slider" src="~/image/slide1.jpg" stt="0" alt="" />
                         <img class="slider" src="~/image/slide2.jpg" stt="1" alt="" style="display:none;" />
@@ -136,20 +136,20 @@
                                 <form action="/Product/SearchFocus" method="get">
                                     <div style="margin-left: 40px;">
 
-                                    <input type="checkbox" class="form-check-input" id="check0" name="check0" value="true">
-                                    <label class="form-check-label" for="check0">Dưới 5 Triệu</label>
-                                    <br />
-                                    <input type="checkbox" class="form-check-input" id="check1" name="check1" value="true">
-                                    <label class="form-check-label" for="check1">5 Triệu - 10 Triệu</label>
-                                    <br />
-                                    <input type="checkbox" class="form-check-input" id="check2" name="check2" value="true">
-                                    <label class="form-check-label" for="check2">10 Triệu - 20 Triệu</label>
-                                    <br />
-                                    <input type="checkbox" class="form-check-input" id="check3" name="check3" value="true">
-                                    <label class="form-check-label" for="check3">20 Triệu - 50 Triệu</label>
-                                    <br />
-                                    <input type="checkbox" class="form-check-input" id="check4" name="check4" value="true">
-                                    <label class="form-check-label" for="check4">Trên 50 Triệu</label>
+                                        <input type="checkbox" class="form-check-input" id="check0" name="check0" value="true">
+                                        <label class="form-check-label" for="check0">Dưới 5 Triệu</label>
+                                        <br />
+                                        <input type="checkbox" class="form-check-input" id="check1" name="check1" value="true">
+                                        <label class="form-check-label" for="check1">5 Triệu - 10 Triệu</label>
+                                        <br />
+                                        <input type="checkbox" class="form-check-input" id="check2" name="check2" value="true">
+                                        <label class="form-check-label" for="check2">10 Triệu - 20 Triệu</label>
+                                        <br />
+                                        <input type="checkbox" class="form-check-input" id="check3" name="check3" value="true">
+                                        <label class="form-check-label" for="check3">20 Triệu - 50 Triệu</label>
+                                        <br />
+                                        <input type="checkbox" class="form-check-input" id="check4" name="check4" value="true">
+                                        <label class="form-check-label" for="check4">Trên 50 Triệu</label>
 
                                     </div>
                                     <input type="submit" class="btn btn-secondary" value="Xem" style="font-size: unset; width: 100%" />
@@ -186,6 +186,25 @@
 
             </section>
 
+        </div>
+    </div>
+    <!-- Chat Bubble -->
+    <div id="chat-bubble">💬</div>
+
+    <!-- Chat Box -->
+    <div id="chat-box">
+        <div id="chat-header">
+            AI Assistant
+            <span id="chat-close">✖</span>
+        </div>
+
+        <div id="chat-body">
+            <div class="message bot">Xin chào 👋</div>
+        </div>
+
+        <div id="chat-input">
+            <input type="text" id="chat-text" placeholder="Nhập tin nhắn..." />
+            <button onclick="sendMessage()">Gửi</button>
         </div>
     </div>
     <footer id="footer">
@@ -325,14 +344,77 @@
     <script>
         $(document).ready()
         {
-
             $("#mymodaldangky").click(function () {
 
                 $("#mymodaldangky").modal('show');
             });
 
+        }
+    </script>
 
+    <script type="text/javascript">
+        document.getElementById("chat-bubble").onclick = function () {
+            document.getElementById("chat-box").classList.toggle("active");
+        };
 
+        document.getElementById("chat-close").onclick = function () {
+            document.getElementById("chat-box").style.display = "none";
+        };
+
+        document.getElementById("chat-text").addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        function formatReply(text) {
+            return text.replace(/(\/Product\/ShowProduct)/g,
+                '<a href="$1">Xem sản phẩm</a>');
+        }
+
+        async function sendMessage() {
+            var input = document.getElementById("chat-text");
+            var text = input.value.trim();
+            if (!text) return;
+
+            var body = document.getElementById("chat-body");
+
+            // 1. Add user message
+            body.innerHTML += `<div class="message user">${text}</div>`;
+            input.value = "";
+
+            // 2. Add "thinking"
+            var thinkingId = "thinking-" + Date.now();
+            body.innerHTML += `
+                <div class="message bot" id="${thinkingId}">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>`;
+            body.scrollTop = body.scrollHeight;
+
+            // 3. Random delay 2–5s
+            const delay = Math.floor(Math.random() * 2000) + 1000;
+            await new Promise(res => setTimeout(res, delay));
+
+            try {
+                const res = await fetch('/home/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text })
+                });
+
+                const data = await res.json();
+
+                document.getElementById(thinkingId).innerHTML =
+                    formatReply(data.reply || "Không có phản hồi 😅");
+
+            } catch (err) {
+                document.getElementById(thinkingId).innerText = "Lỗi rồi 😢";
+            }
+
+            body.scrollTop = body.scrollHeight;
         }
     </script>
     @RenderSection("jsFooter", required: false)
