@@ -188,6 +188,7 @@
     </Compile>
     <Compile Include="Models\CardModel.cs" />
     <Compile Include="Models\CartItem.cs" />
+    <Compile Include="Models\ChatRequest.cs" />
     <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\HistoryCart.cs" />
     <Compile Include="Models\LoginModel.cs" />
