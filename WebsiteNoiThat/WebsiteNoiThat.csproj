@@ -69,6 +69,11 @@
     <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.8.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.8.0\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="reCAPTCHA.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\reCAPTCH.MVC.1.0.1\lib\net45\reCAPTCHA.MVC.dll</HintPath>
     </Reference>
@@ -82,6 +87,7 @@
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.110.0\lib\net451\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -138,6 +144,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Diagnostics.DiagnosticSource">
@@ -192,6 +199,7 @@
     <Compile Include="Models\ChatRequest.cs" />
     <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\HistoryCart.cs" />
+    <Compile Include="Models\InvoiceViewModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
@@ -3158,6 +3166,9 @@
     <Content Include="Views\Product\ProductHot.cshtml" />
     <Content Include="Views\Product\SaleProduct.cshtml" />
     <Content Include="Views\Cart\tai_khoan_bi_khoa.cshtml" />
+    <Content Include="Views\Cart\PaymentFake.cshtml" />
+    <Content Include="Views\Cart\PaymentInvalid.cshtml" />
+    <Content Include="Views\Cart\InvoiceFake.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

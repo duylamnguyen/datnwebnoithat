@@ -1,0 +1,10 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Thanh toán không hợp lệ";
+}
+
+<div class="container" style="text-align:center; margin-top:30px;">
+    <h2>Thanh toán không hợp lệ hoặc đã hết hạn</h2>
+    <p class="alert alert-danger">Liên kết xác nhận không hợp lệ hoặc đã hết hạn. Vui lòng thử đặt hàng lại.</p>
+    <a class="btn btn-secondary" href="@Url.Action("Index", "Cart")">Quay về giỏ hàng</a>
+</div>
