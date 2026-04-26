@@ -1,0 +1,55 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Thanh toán";
+}
+
+<div class="container" style="text-align:center; margin-top:30px;">
+    <h2>Thanh toán</h2>
+    <p style="color:crimson; font-weight:bold;">Tổng: @ViewBag.Total.ToString("N0")₫</p>
+
+    <div style="margin:20px auto; max-width:360px;">
+        <p>Quét mã QR để xác nhận thanh toán hoặc bấm vào đường link bên dưới:</p>
+        <img src="@(ViewBag.QRDataUrl ?? ViewBag.QRUrl)" alt="QR code" style="width:300px; height:300px; border:1px solid #ddd;" />
+    </div>
+
+    <p>
+        <a id="confirmBtn" class="btn btn-primary" href="@ViewBag.ConfirmUrl" target="_blank">Xác nhận thanh toán bằng đường link</a>
+    </p>
+
+    <p style="margin-top:12px;">
+        Thời gian còn lại để xác nhận: <span id="countdown" style="font-weight:bold; color:crimson;">--:--</span>
+    </p>
+</div>
+<script>
+    (function () {
+        var expiryIso = '@(ViewBag.ExpiryUtc ?? DateTime.UtcNow.AddMinutes(30).ToString("o"))';
+        var expiry = new Date(expiryIso);
+        var countdownEl = document.getElementById('countdown');
+        var confirmBtn = document.getElementById('confirmBtn');
+
+        function pad(n) { return n < 10 ? '0' + n : n; }
+
+        function update() {
+            var now = new Date();
+            var diff = Math.floor((expiry - now) / 1000); // seconds
+            if (diff <= 0) {
+                countdownEl.textContent = '00:00';
+                if (confirmBtn) {
+                    confirmBtn.classList.remove('btn-primary');
+                    confirmBtn.classList.add('btn-secondary');
+                    confirmBtn.textContent = 'Liên kết đã hết hạn';
+                    confirmBtn.href = 'javascript:void(0);';
+                    confirmBtn.disabled = true;
+                }
+                clearInterval(timer);
+                return;
+            }
+            var minutes = Math.floor(diff / 60);
+            var seconds = diff % 60;
+            countdownEl.textContent = pad(minutes) + ':' + pad(seconds);
+        }
+
+        update();
+        var timer = setInterval(update, 1000);
+    })();
+</script>

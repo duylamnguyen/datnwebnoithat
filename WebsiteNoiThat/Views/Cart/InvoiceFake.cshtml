@@ -1,0 +1,84 @@
+﻿@model WebsiteNoiThat.Models.InvoiceViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Hóa đơn (Giả lập)";
+}
+
+<div class="container" style="max-width:900px; margin-top:30px;">
+    <div class="row">
+        <div class="col-md-8">
+            <h3>Hóa đơn - Mã đơn: @Model.OrderId</h3>
+            <p><strong>Ngày:</strong> @Model.UpdateDate.ToString("yyyy-MM-dd HH:mm")</p>
+            <p><strong>Khách hàng:</strong> @Model.ShipName</p>
+            <p><strong>Điện thoại:</strong> @Model.ShipPhone</p>
+            <p><strong>Email:</strong> @Model.ShipEmail</p>
+            <p><strong>Địa chỉ giao hàng:</strong> @Model.ShipAddress</p>
+            <p><strong>Phương thức thanh toán:</strong> @Model.PaymentMethod</p>
+            <p><strong>Trạng thái:</strong>
+                @{
+                    var statusText = Model.StatusId == 2 ? "Đã thanh toán" : "Chờ xử lý";
+                }
+                @statusText
+            </p>
+
+            <hr />
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Giảm</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var idx = 1;
+                        foreach (var it in Model.Items)
+                        {
+                            <tr>
+                                <td>@idx</td>
+                                <td>
+                                    <div style="display:flex; align-items:center;">
+                                        @if (!string.IsNullOrEmpty(it.Photo))
+                                        {
+                                            <img src="@Url.Content("~/image/" + it.Photo)" style="width:60px; height:60px; object-fit:cover; margin-right:10px;" />
+                                        }
+                                        <span>@it.Name</span>
+                                    </div>
+                                </td>
+                                <td>@it.Quantity</td>
+                                <td>@String.Format("{0:N0}", it.Price)₫</td>
+                                <td>@it.Discount %</td>
+                                <td>@String.Format("{0:N0}", it.Price * it.Quantity)₫</td>
+                            </tr>
+                            idx++;
+                        }
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" style="text-align:right; font-weight:bold;">Tổng</td>
+                        <td style="font-weight:bold; color:crimson;">@String.Format("{0:N0}", Model.Total)₫</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default" style="padding:15px;">
+                <h4>Thông tin đơn hàng</h4>
+                <p><strong>Mã đơn:</strong> @Model.OrderId</p>
+                <p><strong>Tổng:</strong> <span style="color:crimson; font-weight:bold;">@String.Format("{0:N0}", Model.Total)₫</span></p>
+                <p><strong>Thanh toán:</strong> @Model.PaymentMethod</p>
+                <p style="margin-top:10px;">
+                    <a class="btn btn-primary" href="@Url.Action("Index", "Home")">Quay về trang chủ</a>
+                    <a class="btn btn-secondary" href="@Url.Action("HistoryCart", "Cart")">Xem lịch sử</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
